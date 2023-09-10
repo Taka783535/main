@@ -5,46 +5,46 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-//Œp³æ‚ÅƒXƒg[ƒŠ[ID‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢
-//ƒXƒg[ƒŠ[ID=set_storyid
+//ç¶™æ‰¿å…ˆã§ã‚¹ãƒˆãƒ¼ãƒªãƒ¼IDã‚’è¨­å®šã—ã¦ãã ã•ã„
+//ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ID=set_storyid
 
 public class BaseStory : MonoBehaviour
 {
 
     /**************************************************************************************
-     * ƒNƒ‰ƒXŠT—v
-     * ƒXƒg[ƒŠ[‚ÌŠeƒZƒŠƒt‚ğŠi”[EŠÇ—‚·‚éƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg(ƒf[ƒ^ƒx[ƒX)‚ª‚ ‚èC
-     * ‰‚ß‚É‚»‚ÌƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚©‚ç—pˆÓ‚µ‚½ƒŠƒXƒg‚Öƒf[ƒ^‚ğƒRƒs[‚·‚éB
-     * ˆÈŒãC‚»‚ÌƒŠƒXƒg‚ğ’†S‚É‘€ì‚·‚é
+     * ã‚¯ãƒ©ã‚¹æ¦‚è¦
+     * ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®å„ã‚»ãƒªãƒ•ã‚’æ ¼ç´ãƒ»ç®¡ç†ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹)ãŒã‚ã‚Šï¼Œ
+     * åˆã‚ã«ãã®ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰ç”¨æ„ã—ãŸãƒªã‚¹ãƒˆã¸ãƒ‡ãƒ¼ã‚¿ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹ã€‚
+     * ä»¥å¾Œï¼Œãã®ãƒªã‚¹ãƒˆã‚’ä¸­å¿ƒã«æ“ä½œã™ã‚‹
      * 
-     * —pŒê
-     * ƒZƒŠƒtF
-     * ‚±‚±‚Å‚ÍƒŠƒXƒg‚Ì1‚Â1‚Â‚Ìƒf[ƒ^‚Ì‚±‚ÆBŠeƒLƒƒƒ‰ƒNƒ^[‚Ì”­Œ¾‚Ì1‰ò‚Ì‚±‚ÆB
+     * ç”¨èª
+     * ã‚»ãƒªãƒ•ï¼š
+     * ã“ã“ã§ã¯ãƒªã‚¹ãƒˆã®1ã¤1ã¤ã®ãƒ‡ãƒ¼ã‚¿ã®ã“ã¨ã€‚å„ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®ç™ºè¨€ã®1å¡Šã®ã“ã¨ã€‚
      **************************************************************************************/
 
 
-    [SerializeField] private protected StoryDialogList story_daialog_list; //ƒXƒg[ƒŠ[‚ÌƒZƒŠƒt‚ª’è‹`‚³‚ê‚½ƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg
-    private List<StoryDialogDifinaition> story_dialog; //ƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚©‚çæ‚èo‚µ‚½ƒŠƒXƒgŒ`®‚ÌƒZƒŠƒtƒf[ƒ^
-    [SerializeField] protected bool story_flg = true; //ƒXƒg[ƒŠ[ƒtƒ‰ƒO(ƒXƒg[ƒŠ[‚Æ’Êí‚ÌƒZƒŠƒt‚ğØ‚èŠ·‚¦‚é,å‚ÉNPC‚Åg‚¤)
-    [SerializeField] public static int set_storyid=0; //Œp³æ‚Åİ’è‚·‚éƒXƒg[ƒŠ[ID, ƒŠƒXƒg‚©‚ç”CˆÓ‚ÌƒZƒŠƒt‚Ìˆø‚«o‚µ‚Ég—pB
-    protected int story_progress=0; //ƒXƒg[ƒŠ[‚Ìisó‹µ(ƒXƒg[ƒŠ[ID(set_storyid‚Ì’l)‚ª•Û‘¶‚³‚ê‚Ä‚¢‚é)
+    [SerializeField] private protected StoryDialogList story_daialog_list; //ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®ã‚»ãƒªãƒ•ãŒå®šç¾©ã•ã‚ŒãŸã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    private List<StoryDialogDifinaition> story_dialog; //ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰å–ã‚Šå‡ºã—ãŸãƒªã‚¹ãƒˆå½¢å¼ã®ã‚»ãƒªãƒ•ãƒ‡ãƒ¼ã‚¿
+    [SerializeField] protected bool story_flg = true; //ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ãƒ•ãƒ©ã‚°(ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã¨é€šå¸¸ã®ã‚»ãƒªãƒ•ã‚’åˆ‡ã‚Šæ›ãˆã‚‹,ä¸»ã«NPCã§ä½¿ã†)
+    [SerializeField] public static int set_storyid=0; //ç¶™æ‰¿å…ˆã§è¨­å®šã™ã‚‹ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ID, ãƒªã‚¹ãƒˆã‹ã‚‰ä»»æ„ã®ã‚»ãƒªãƒ•ã®å¼•ãå‡ºã—ã«ä½¿ç”¨ã€‚
+    protected int story_progress=0; //ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®é€²è¡ŒçŠ¶æ³(ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ID(set_storyidã®å€¤)ãŒä¿å­˜ã•ã‚Œã¦ã„ã‚‹)
 
     
-    //’Êí‚ÆNPC—p‚ÌŠeíUIƒLƒƒƒ“ƒoƒX
-    private GameObject canvas;   //ƒvƒŒƒCƒ„[‚Ì’Êí‚ÌƒLƒƒƒ“ƒoƒX
-    private GameObject npc_talkcanvas;    //NPC‚Æ‰ï˜b‚·‚é—p‚ÌUI‚ª”z’u‚³‚ê‚Ä‚¢‚éƒLƒƒƒ“ƒoƒX
-    private GameObject npc_comment_text;  //NPC‚Ì‰ï˜b‚ª•\¦‚³‚ê‚éUI
+    //é€šå¸¸ã¨NPCç”¨ã®å„ç¨®UIã‚­ãƒ£ãƒ³ãƒã‚¹
+    private GameObject canvas;   //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€šå¸¸ã®ã‚­ãƒ£ãƒ³ãƒã‚¹
+    private GameObject npc_talkcanvas;    //NPCã¨ä¼šè©±ã™ã‚‹ç”¨ã®UIãŒé…ç½®ã•ã‚Œã¦ã„ã‚‹ã‚­ãƒ£ãƒ³ãƒã‚¹
+    private GameObject npc_comment_text;  //NPCã®ä¼šè©±ãŒè¡¨ç¤ºã•ã‚Œã‚‹UI
 
-    protected int dialog_counter = 0; //ƒŠƒXƒg‚Ì’†‚ÌƒZƒŠƒt‚ªŠi”[‚³‚ê‚Ä‚¢‚é”z—ñ‚ÉƒAƒNƒZƒX‚·‚é‚½‚ß‚ÌƒJƒEƒ“ƒ^
+    protected int dialog_counter = 0; //ãƒªã‚¹ãƒˆã®ä¸­ã®ã‚»ãƒªãƒ•ãŒæ ¼ç´ã•ã‚Œã¦ã„ã‚‹é…åˆ—ã«ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ãŸã‚ã®ã‚«ã‚¦ãƒ³ã‚¿
 
-    private int all_dialog_counter; //1‚Â‚ÌƒŠƒXƒg‚É“ü‚Á‚Ä‚¢‚éƒZƒŠƒt‚ÌÅ‘å”
+    private int all_dialog_counter; //1ã¤ã®ãƒªã‚¹ãƒˆã«å…¥ã£ã¦ã„ã‚‹ã‚»ãƒªãƒ•ã®æœ€å¤§æ•°
 
 
-    private bool callonce=false; //1“x‚µ‚©ŒÄ‚Î‚ê‚È‚¢ƒƒ\ƒbƒh‚Ég‚¤ƒtƒ‰ƒO
+    private bool callonce=false; //1åº¦ã—ã‹å‘¼ã°ã‚Œãªã„ãƒ¡ã‚½ãƒƒãƒ‰ã«ä½¿ã†ãƒ•ãƒ©ã‚°
 
-    protected bool clear_slime_quest = false;  //¡‰ñó’‚·‚éƒXƒ‰ƒCƒ€“¢”°ƒNƒGƒXƒg‚ÌƒNƒŠƒA‚ğ”»•Ê‚·‚éƒtƒ‰ƒO
+    protected bool clear_slime_quest = false;  //ä»Šå›å—æ³¨ã™ã‚‹ã‚¹ãƒ©ã‚¤ãƒ è¨ä¼ã‚¯ã‚¨ã‚¹ãƒˆã®ã‚¯ãƒªã‚¢ã‚’åˆ¤åˆ¥ã™ã‚‹ãƒ•ãƒ©ã‚°
 
-    private bool search_button=false; //ƒNƒGƒXƒgNPC‚É˜b‚©‚¯‚é‰Ÿ‚·ƒ{ƒ^ƒ“
+    private bool search_button=false; //ã‚¯ã‚¨ã‚¹ãƒˆNPCã«è©±ã‹ã‘ã‚‹æ™‚æŠ¼ã™ãƒœã‚¿ãƒ³
 
     private GameObject actionbutton;
 
@@ -52,7 +52,7 @@ public class BaseStory : MonoBehaviour
 
     public void StoryReset()
     {
-        //ƒXƒg[ƒŠ[‚Ìisó‹µ‚ÌƒŠƒZƒbƒg
+        //ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®é€²è¡ŒçŠ¶æ³ã®ãƒªã‚»ãƒƒãƒˆ
         set_storyid = 0;
         dialog_counter = 0;
         all_dialog_counter = 0;
@@ -60,14 +60,14 @@ public class BaseStory : MonoBehaviour
     }
 
 
-    //Button(UI)‚É“K—pBƒNƒGƒXƒgNPC‚É˜b‚©‚¯‚é‚É‹ß‚­‚Å‰Ÿ‚·‚ÆƒXƒg[ƒŠ[‚Ì‰ï˜b‚ªn‚Ü‚é
+    //Button(UI)ã«é©ç”¨ã€‚ã‚¯ã‚¨ã‚¹ãƒˆNPCã«è©±ã‹ã‘ã‚‹æ™‚ã«è¿‘ãã§æŠ¼ã™ã¨ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®ä¼šè©±ãŒå§‹ã¾ã‚‹
     public void PushSearchButton()
     {
         search_button = true;
     }
 
 
-    //ƒNƒGƒXƒg•\¦ƒ{[ƒh‚È‚Ç‚ÌŒŸõE“o˜^ˆ—
+    //ã‚¯ã‚¨ã‚¹ãƒˆè¡¨ç¤ºãƒœãƒ¼ãƒ‰ãªã©ã®æ¤œç´¢ãƒ»ç™»éŒ²å‡¦ç†
     private void OnTriggerEnter(Collider other)
     {
         if (gameObject.tag == "NPC")
@@ -80,7 +80,7 @@ public class BaseStory : MonoBehaviour
                 npc_talkcanvas = other.gameObject.transform.Find("NPCTalkCanvas").gameObject;
                 npc_comment_text = npc_talkcanvas.transform.Find("npc_comment_panel").Find("npc_comment_text").gameObject;
 
-                //ƒAƒNƒVƒ‡ƒ“ƒ{ƒ^ƒ“‚ÉƒCƒxƒ“ƒg‚ğİ’è
+                //ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒœã‚¿ãƒ³ã«ã‚¤ãƒ™ãƒ³ãƒˆã‚’è¨­å®š
                 Button[] buttons = GameObject.FindObjectsOfType<Button>();
 
                 foreach (Button btn in buttons)
@@ -99,18 +99,18 @@ public class BaseStory : MonoBehaviour
     }
 
 
-    //ƒNƒGƒXƒgNPC‚É˜b‚©‚¯‚éˆ—‚ÆƒXƒ‰ƒCƒ€“¢”°ƒNƒGƒXƒg‚ÌƒNƒŠƒA”»’è‚Ìˆ—
+    //ã‚¯ã‚¨ã‚¹ãƒˆNPCã«è©±ã‹ã‘ã‚‹å‡¦ç†ã¨ã‚¹ãƒ©ã‚¤ãƒ è¨ä¼ã‚¯ã‚¨ã‚¹ãƒˆã®ã‚¯ãƒªã‚¢åˆ¤å®šã®å‡¦ç†
     private void OnTriggerStay(Collider other)
     {
 
-        //ƒNƒGƒXƒgNPC‚Ì‹ß‚­‚Åƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚Æ‰ï˜b‚ªn‚Ü‚é
+        //ã‚¯ã‚¨ã‚¹ãƒˆNPCã®è¿‘ãã§ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨ä¼šè©±ãŒå§‹ã¾ã‚‹
         if (callonce == false && search_button == true&&gameObject.tag== "NPC")
         {
             if (other.tag == "Player" && story_flg == true)
             {
                 Show_Story(set_storyid);
 
-                //Ÿ‚Öƒ{ƒ^ƒ“ƒCƒxƒ“ƒg‚Ì“o˜^ˆ—
+                //æ¬¡ã¸ãƒœã‚¿ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆã®ç™»éŒ²å‡¦ç†
                 Button[] butt = GameObject.FindObjectsOfType<Button>();
 
                 foreach(Button btn in butt)
@@ -136,7 +136,7 @@ public class BaseStory : MonoBehaviour
 
         if (gameObject.tag == "NPC")
         {
-            //ƒtƒ‰ƒO‚Ì’lƒŠƒZƒbƒgˆ—
+            //ãƒ•ãƒ©ã‚°ã®å€¤ãƒªã‚»ãƒƒãƒˆå‡¦ç†
             callonce = false;
         }
 
@@ -145,9 +145,9 @@ public class BaseStory : MonoBehaviour
 
     protected virtual void PromoteStory_ID()
     {
-        //ƒI[ƒo[ƒ‰ƒCƒh—pƒƒ\ƒbƒh
-        //Œp³æ‚ÌƒNƒ‰ƒX‚Å‚±‚Ìƒƒ\ƒbƒh‚ğ‘‚«Š·‚¦‚È‚¢ê‡‚ÍƒZƒŠƒt‚ªI—¹ŒãŸ‚ÌƒZƒŠƒt‚ÖØ‚è‘Ö‚í‚é
-        //‚Â‚Ü‚èNPC‚Í“¯‚¶ƒZƒŠƒt‚ğŒ¾‚¤‚±‚Æ‚È‚­V‚µ‚¢ƒZƒŠƒt‚ÉØ‚è‘Ö‚í‚éB
+        //ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ç”¨ãƒ¡ã‚½ãƒƒãƒ‰
+        //ç¶™æ‰¿å…ˆã®ã‚¯ãƒ©ã‚¹ã§ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’æ›¸ãæ›ãˆãªã„å ´åˆã¯ã‚»ãƒªãƒ•ãŒçµ‚äº†å¾Œæ¬¡ã®ã‚»ãƒªãƒ•ã¸åˆ‡ã‚Šæ›¿ã‚ã‚‹
+        //ã¤ã¾ã‚ŠNPCã¯åŒã˜ã‚»ãƒªãƒ•ã‚’è¨€ã†ã“ã¨ãªãæ–°ã—ã„ã‚»ãƒªãƒ•ã«åˆ‡ã‚Šæ›¿ã‚ã‚‹ã€‚
 
         set_storyid += 1;
         
@@ -157,21 +157,21 @@ public class BaseStory : MonoBehaviour
 
 
     /*****************************************
-     * ƒXƒg[ƒŠ[‚Ì‰ï˜b‚ğŠJn‚·‚éƒƒ\ƒbƒh
-     * ˆø”F•\¦‚·‚éƒXƒg[ƒŠ[‚ÌƒXƒg[ƒŠ[ID
-     * –ß‚è’lF‚È‚µ
-     * ŠT—vF
-     * ˆø”‚Åw’è‚µ‚½ƒXƒg[ƒŠ[‚ğ•\¦‚·‚é
+     * ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®ä¼šè©±ã‚’é–‹å§‹ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+     * å¼•æ•°ï¼šè¡¨ç¤ºã™ã‚‹ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ID
+     * æˆ»ã‚Šå€¤ï¼šãªã—
+     * æ¦‚è¦ï¼š
+     * å¼•æ•°ã§æŒ‡å®šã—ãŸã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
      * ***************************************/
     private void Show_Story(int story_id)
     {
-        //ƒXƒg[ƒŠ[‚Ì‰ï˜b‚ğ•\¦‚·‚éê‡
+        //ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®ä¼šè©±ã‚’è¡¨ç¤ºã™ã‚‹å ´åˆ
         if (story_flg)
         {
 
             if(story_dialog==null)
             {
-                //ƒXƒg[ƒŠ[‚ÌƒZƒŠƒtƒf[ƒ^‚ğ—pˆÓ‚µ‚½ƒŠƒXƒg‚Éæ“¾
+                //ã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®ã‚»ãƒªãƒ•ãƒ‡ãƒ¼ã‚¿ã‚’ç”¨æ„ã—ãŸãƒªã‚¹ãƒˆã«å–å¾—
                 story_dialog = story_daialog_list.GetStoryDialogList();
             }
             
@@ -179,7 +179,7 @@ public class BaseStory : MonoBehaviour
             foreach (StoryDialogDifinaition serifu in story_dialog)
             {
                 
-                //æ“¾‚µ‚½ƒŠƒXƒg‚©‚ç”CˆÓ‚ÌƒZƒŠƒt‚ğˆø‚«o‚µ“Á’è(ƒZƒŠƒt‚Ìw’è‚Íˆø”)
+                //å–å¾—ã—ãŸãƒªã‚¹ãƒˆã‹ã‚‰ä»»æ„ã®ã‚»ãƒªãƒ•ã‚’å¼•ãå‡ºã—ç‰¹å®š(ã‚»ãƒªãƒ•ã®æŒ‡å®šã¯å¼•æ•°)
                 if (serifu.story_id == story_id)
                 {
                     canvas.SetActive(false);
@@ -187,10 +187,10 @@ public class BaseStory : MonoBehaviour
                     npc_talkcanvas.SetActive(true);
                     
 
-                    //ƒCƒ“ƒfƒbƒNƒX‚Éæ‚èo‚µ‚½ƒZƒŠƒt-1‚Ì’·‚³‚ğ‹L˜^‚µ‚Ä‚¨‚­(ƒZƒŠƒt‚Ì•¶š”BŒã‚Åg‚¤)
+                    //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«å–ã‚Šå‡ºã—ãŸã‚»ãƒªãƒ•-1ã®é•·ã•ã‚’è¨˜éŒ²ã—ã¦ãŠã(ã‚»ãƒªãƒ•ã®æ–‡å­—æ•°ã€‚å¾Œã§ä½¿ã†)
                     all_dialog_counter = serifu.story_dialog.Length-1;
 
-                    //“Á’è‚µ‚½ƒXƒg[ƒŠ[‚ÌƒZƒŠƒt‚ğUI‚É•\¦‚·‚éB
+                    //ç‰¹å®šã—ãŸã‚¹ãƒˆãƒ¼ãƒªãƒ¼ã®ã‚»ãƒªãƒ•ã‚’UIã«è¡¨ç¤ºã™ã‚‹ã€‚
                     npc_comment_text.GetComponent<Text>().text = serifu.story_dialog[dialog_counter];
 
 
@@ -205,41 +205,33 @@ public class BaseStory : MonoBehaviour
 
    
     /************************************
-    *Ÿ‚Ö@ƒ{ƒ^ƒ“‚ªƒNƒŠƒbƒN‚³‚ê‚½‚Ìˆ—
-    *ˆø”F‚È‚µ
-    *–ß‚è’lF‚È‚µ
-    *ŠT—vFƒZƒŠƒt‚ğ1‚Âi‚ß‚éB
+    *æ¬¡ã¸ã€€ãƒœã‚¿ãƒ³ãŒã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸæ™‚ã®å‡¦ç†
+    *å¼•æ•°ï¼šãªã—
+    *æˆ»ã‚Šå€¤ï¼šãªã—
+    *æ¦‚è¦ï¼šã‚»ãƒªãƒ•ã‚’1ã¤é€²ã‚ã‚‹ã€‚
     *************************************/
     public void Next_Story_Comment()
     {
         if (story_flg)
         {
-            //ƒZƒŠƒt‚ª“r’†‚Ìê‡
+            //ã‚»ãƒªãƒ•ãŒé€”ä¸­ã®å ´åˆ
             if (dialog_counter < all_dialog_counter )
             {
-                //ƒZƒŠƒt‚ği‚ß‚é
+                //ã‚»ãƒªãƒ•ã‚’é€²ã‚ã‚‹
                 dialog_counter += 1;
                 Show_Story(set_storyid);
 
             }
-            //ƒZƒŠƒt‚ªI‚í‚Á‚½ê‡
+            //ã‚»ãƒªãƒ•ãŒçµ‚ã‚ã£ãŸå ´åˆ
             else
             {
                 npc_talkcanvas.SetActive(false);
               
                 canvas.SetActive(true);
-               
-
-                //ƒQ[ƒ€ƒNƒŠƒA‚ğ‚µ‚½‚Ìˆ—Bdialog_counter‚Ì‰Šú‰»‘O‚ÉÀs‚·‚é•K—v‚ª‚ ‚éˆ×‚±‚±‚É”z’u
-                if (set_storyid == 2 && dialog_counter == 2)
-                {
-                    SceneManager.LoadScene("GameClear Scene");
-                }
-
-
+                
                 PromoteStory_ID();
 
-                //ƒZƒŠƒtƒJƒEƒ“ƒ^[0ƒNƒŠƒA
+                //ã‚»ãƒªãƒ•ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼0ã‚¯ãƒªã‚¢
                 dialog_counter = 0;
 
                 
